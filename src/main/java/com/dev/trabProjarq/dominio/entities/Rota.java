@@ -2,14 +2,7 @@ package com.dev.trabProjarq.dominio.entities;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -28,8 +21,13 @@ public class Rota {
     
     public String nome;
 
-    public RefGeo destino;
+    @ManyToOne
+    @JoinColumn(name = "ref_geo_origin_id")
     public RefGeo origem;
+
+    @ManyToOne
+    @JoinColumn(name = "ref_geo_destiny_id")
+    public RefGeo destino;
 
     public Rota(){
         

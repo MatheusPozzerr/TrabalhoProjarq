@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import  com.dev.trabProjarq.dominio.entities.Rota;
 
-@Component
 public interface IRotasRep{
     List<Rota> findRotas();
 

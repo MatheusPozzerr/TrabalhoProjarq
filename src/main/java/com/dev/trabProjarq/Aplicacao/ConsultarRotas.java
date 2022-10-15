@@ -21,10 +21,10 @@ public class ConsultarRotas {
         this.servicoRotas = servicoRotas;
     }
 
-    public List<RotaDTO> BuscaRotasDestino(String destino, String origem){
-        List<Rota> rotasSelecionadas = this.servicoRotas.buscaRotasDestino(destino, origem);
+    public List<RotaDTO> buscaRotasDestino(String destino, String origem){
+        List<Rota> rotasSelecionadas = this.servicoRotas.consultaRotas(destino, origem);
         List<RotaDTO> rotasSelecionadasDto = new ArrayList<>();
-        rotasSelecionadas.forEach( rota -> rotasSelecionadasDto.add(new RotaDTO(rota.getNome(), rota.getId(), rota.getAerovias())));
+        rotasSelecionadas.forEach( rota -> rotasSelecionadasDto.add(new RotaDTO(rota.nome, rota.id, rota.aerovias)));
         return rotasSelecionadasDto;
     }
     

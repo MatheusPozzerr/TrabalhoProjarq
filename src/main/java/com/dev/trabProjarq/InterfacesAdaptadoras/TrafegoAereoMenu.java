@@ -25,7 +25,7 @@ public class TrafegoAereoMenu {
     @GetMapping("/rotas")
     @CrossOrigin(origins = "*")
     public List<RotaDTO> consultaRotasDestinos(@RequestParam("destino") String destino, @RequestParam("origem") String origem) {
-        return this.consultarRotas.BuscaRotasDestino(destino, origem);
+        return this.consultarRotas.buscaRotasDestino(destino, origem);
     }
 
 }
