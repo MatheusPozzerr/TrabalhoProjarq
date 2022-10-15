@@ -28,4 +28,10 @@ public class TrafegoAereoMenu {
         return this.consultarRotas.buscaRotasDestino(destino, origem);
     }
 
+    @GetMapping("/altitudes-livres")
+    @CrossOrigin(origins = "*")
+    public List<SlotsDTO> consultaAltitudesLivres(int horario, float velocidade){
+        return this.consultarSlots.buscaAltitudesLivres(horario, velocidade);
+    }
+
 }

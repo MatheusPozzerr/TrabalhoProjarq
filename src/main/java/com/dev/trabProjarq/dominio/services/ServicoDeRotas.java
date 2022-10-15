@@ -24,7 +24,5 @@ public class ServicoDeRotas {
                 .filter(rota -> rota.destino.nome.toLowerCase().equals(destino.toLowerCase())
                         && rota.origem.nome.toLowerCase().equals(origem.toLowerCase()))
                 .collect(Collectors.toList());
-
     }
-
 }

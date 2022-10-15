@@ -17,6 +17,14 @@ public class ServicoDePlanos {
         this.planosRep = planosRep;
     }
 
+    public void consultaSlotsLivres(int horario, float velocidade){
+        float tempoVoo = ;
+        // busca todos os planos de voo
+        // filtra os planos daquele dia
+        // filtra por horario
+        // calcula tempo
+    }
+
     public void verificarPlanoDeVoo() {
     
     }
