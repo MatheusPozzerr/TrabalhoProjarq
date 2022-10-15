@@ -22,7 +22,7 @@ public class ConsultarRotas {
     }
 
     public List<RotaDTO> BuscaRotasDestino(String destino, String origem){
-        List<Rota> rotasSelecionadas = this.servicoRotas.BuscaRotasDestino(destino, origem);
+        List<Rota> rotasSelecionadas = this.servicoRotas.buscaRotasDestino(destino, origem);
         List<RotaDTO> rotasSelecionadasDto = new ArrayList<>();
         rotasSelecionadas.forEach( rota -> rotasSelecionadasDto.add(new RotaDTO(rota.getNome(), rota.getId(), rota.getAerovias())));
         return rotasSelecionadasDto;
