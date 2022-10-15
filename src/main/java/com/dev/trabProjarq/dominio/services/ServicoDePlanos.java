@@ -1,11 +1,14 @@
 package com.dev.trabProjarq.dominio.services;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 
 @Service
@@ -17,24 +20,46 @@ public class ServicoDePlanos {
         this.planosRep = planosRep;
     }
 
-    public void consultaSlotsLivres(int horario, float velocidade){
-        float tempoVoo = ;
-        // busca todos os planos de voo
-        // filtra os planos daquele dia
-        // filtra por horario
-        // calcula tempo
+    public List<PlanoDeVoo> consultaFodasse(Date data, int horario, int aeroviaId) {
+        List<PlanoDeVoo> planos = this.planosRep.findPlanos().stream()
+                .filter(plano -> plano.data.equals(data))
+                .collect(Collectors.toList());
+
+        List<PlanoDeVoo> planosFiltrados = new ArrayList<>();
+
+        for (PlanoDeVoo plano : planos) {
+            List<Aerovia> aerovias = plano.rota.aerovias;
+            for (Aerovia aerovia : aerovias) {
+                if (aerovia.id == aeroviaId) {
+                    float tempoVoo = aerovia.distancia / plano.velCruzeiro;
+
+                    int diff = (int)Math.ceil(Math.abs(plano.horarioPartida - tempoVoo));
+
+                    List<Integer> slotsOcupados = new ArrayList<>();
+
+                    slotsOcupados.add((int)Math.floor(plano.horarioPartida));
+                    for (int i=0; i<diff; i++) {
+                        slotsOcupados.add((int)Math.floor(plano.horarioPartida) + i);
+                    }
+
+                    planosFiltrados.add(plano);
+                }
+            }
+        }
+
+        return planosFiltrados;
     }
 
     public void verificarPlanoDeVoo() {
-    
+
     }
 
-	public void cancelarPlanoDeVoo() {
-    
+    public void cancelarPlanoDeVoo() {
+
     }
 
-	public void autorizarPlanoDeVoo() {
-    
+    public void autorizarPlanoDeVoo() {
+
     }
 
 }

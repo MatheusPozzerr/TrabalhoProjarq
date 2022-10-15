@@ -18,6 +18,7 @@ public class PlanoDeVoo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
 
+    public float horarioPartida;
     public Date data;
     public float altitude;
     public int velCruzeiro;

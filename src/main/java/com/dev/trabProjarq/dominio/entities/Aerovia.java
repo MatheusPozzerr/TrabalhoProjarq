@@ -17,17 +17,17 @@ public class Aerovia {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String nome;
-    private float distancia;
+    public int id;
+    public String nome;
+    public float distancia;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn( name = "ref_geo_destiny_id")
-    private RefGeo destino;
+    public RefGeo destino;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn( name = "ref_geo_origin_id")
-    private RefGeo origem;
+    public RefGeo origem;
 
     public Aerovia(){
 
