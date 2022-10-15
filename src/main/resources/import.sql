@@ -30,16 +30,16 @@ Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALU
 Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALUES ('AeroviaR2A1', 860, 7, 1);
 
 --Insert das rotas
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA1A2', 1, 2);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA2A1', 2, 1);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA3A4', 3, 4);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA4A5', 4, 5);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA5A3', 5, 3);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA1A4', 1, 4);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA2A5', 2, 5);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA3A2', 3, 2);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA4A3', 4, 3);
-Insert into rota(nome, ref_geo_origin_id ,ref_geo_destiny_id) VALUES ('RotaA5A1', 5, 1);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA1A2', 1, 2);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA2A1', 2, 1);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA3A4', 3, 4);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA4A5', 4, 5);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA5A3', 5, 3);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA1A4', 1, 4);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA2A5', 2, 5);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA3A2', 3, 2);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA4A3', 4, 3);
+Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA5A1', 5, 1);
 
 --Insert da tabela intermediária ligando aerovias com as rotas
 

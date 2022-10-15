@@ -3,6 +3,7 @@ package com.dev.trabProjarq.Aplicacao.DTO;
 import java.util.List;
 
 import com.dev.trabProjarq.dominio.entities.Aerovia;
+import com.dev.trabProjarq.dominio.entities.Rota;
 
 public class RotaDTO {
     private String nome;
@@ -14,6 +15,12 @@ public class RotaDTO {
         this.nome = nome;
         this.id = id;
         this.aerovias = aerovias;
+    }
+
+    public RotaDTO(Rota rota){
+        this.nome = rota.nome;
+        this.id = rota.id;
+        this.aerovias = rota.aerovias;
     }
 
     public String getNome() {
