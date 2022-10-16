@@ -1,8 +1,7 @@
 package com.dev.trabProjarq.dominio.entities;
 
-import java.util.Date;
-
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Entity
@@ -13,7 +12,7 @@ public class OcupacaoAerovia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     
-    public Date data;
+    public LocalDate data;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn( name = "id_aerovia")

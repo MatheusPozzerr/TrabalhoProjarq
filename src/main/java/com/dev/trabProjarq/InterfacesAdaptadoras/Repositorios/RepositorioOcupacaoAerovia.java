@@ -1,16 +1,15 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras.Repositorios;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
 import com.dev.trabProjarq.dominio.services.IOcupacaoAeroviaRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
@@ -22,13 +21,12 @@ public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
 	}
 
 	@Override
-	public List<OcupacaoAerovia> findOcupadasSlots(int aeroviaId, Date data, List<Float> slotsHorarios) {
+	public List<OcupacaoAerovia> findOcupadasSlots(int aeroviaId, LocalDate data, List<Float> slotsHorarios) {
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		return ocupacaoAeroviaCrud.findAll().stream()
 			.filter(oa -> oa.aerovia.id == aeroviaId)
-			.filter(oa -> formatter.format(oa.data).equals(formatter.format(data)))
+			.filter(oa -> oa.data.equals(data))
 			.filter(oa -> slotsHorarios.contains((float) oa.slot_horario))
 			.collect(Collectors.toList());
 	}
-
 }

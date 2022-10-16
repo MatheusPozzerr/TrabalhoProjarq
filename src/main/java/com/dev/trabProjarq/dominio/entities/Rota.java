@@ -1,8 +1,7 @@
 package com.dev.trabProjarq.dominio.entities;
 
-import java.util.List;
-
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity

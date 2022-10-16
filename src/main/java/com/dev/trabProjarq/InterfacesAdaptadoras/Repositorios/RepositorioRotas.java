@@ -1,12 +1,11 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras.Repositorios;
 
-import java.util.List;
-
+import com.dev.trabProjarq.dominio.entities.Rota;
+import com.dev.trabProjarq.dominio.services.IRotasRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dev.trabProjarq.dominio.entities.Rota;
-import com.dev.trabProjarq.dominio.services.IRotasRep;
+import java.util.List;
 
 @Component
 public class RepositorioRotas implements IRotasRep{

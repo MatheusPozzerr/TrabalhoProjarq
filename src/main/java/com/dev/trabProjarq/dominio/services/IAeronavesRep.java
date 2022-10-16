@@ -1,8 +1,8 @@
 package com.dev.trabProjarq.dominio.services;
+
+import com.dev.trabProjarq.dominio.entities.Aeronave;
+
 import java.util.List;
-
-
-import  com.dev.trabProjarq.dominio.entities.Aeronave;
 
 public interface IAeronavesRep{
     public List<Aeronave> getAeronaves();

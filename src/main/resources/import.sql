@@ -61,14 +61,14 @@ Insert into rota_aerovia(id_rota, id_aerovia) VALUES (10, 15);
 
 --Insert dos slots de Ocupacao Aerovia
 
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 1, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 1, 19);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 1, 20);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 2, 10);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 2, 5);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 9, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 4, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 2, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 3, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 25000, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 25000, 19);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 25000, 20);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 26000, 10);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 26000, 5);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 33000, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 28000, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 26000, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 27000, 18);
 
 

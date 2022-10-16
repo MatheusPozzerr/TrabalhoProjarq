@@ -1,15 +1,14 @@
 package com.dev.trabProjarq.dominio.services;
 
+import com.dev.trabProjarq.dominio.entities.Aerovia;
+import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.dev.trabProjarq.dominio.entities.Aerovia;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 
 @Service
 public class ServicoDePlanos {

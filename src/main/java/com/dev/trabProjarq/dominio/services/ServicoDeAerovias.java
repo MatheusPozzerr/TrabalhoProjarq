@@ -1,18 +1,15 @@
 package com.dev.trabProjarq.dominio.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
+import com.dev.trabProjarq.dominio.entities.Aerovia;
+import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.trabProjarq.dominio.entities.Aerovia;
-import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ServicoDeAerovias {
@@ -25,13 +22,13 @@ public class ServicoDeAerovias {
         this.ocupacaoRep = ocupacaoRep;
     }
 
-    public List<Integer> consultaSlotsLivres(int aeroviaId, Date data, Float horario, float velCruzeiro){
+    public List<Integer> consultaSlotsLivres(int aeroviaId, LocalDate data, float horario, float velCruzeiro){
         Aerovia aerovia = aeroviaRep.findAerovia(aeroviaId).get();
 
-        List<Integer> slotsTodos = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        List<Integer> slotsTodos = new ArrayList<>(Arrays.asList(25000, 26000, 27000, 28000, 29000, 30000, 31000, 32000, 33000, 34000));
         List<Float> slotsHorarios = new ArrayList<>();
 
-        Float tempoVoo = aerovia.distancia / velCruzeiro;
+        float tempoVoo = aerovia.distancia / velCruzeiro;
 
         tempoVoo = tempoVoo + horario;
         
@@ -48,23 +45,6 @@ public class ServicoDeAerovias {
 
         List<Integer> altitudesOcupadas = ocupadas.stream().map( ocupaAerovia -> ocupaAerovia.slot_altitude).collect(Collectors.toList());
 
-        slotsTodos = slotsTodos.stream().filter(slotsLivres -> !altitudesOcupadas.contains(slotsLivres)).collect(Collectors.toList());
-
-        return slotsTodos;
-        // Aerovia aerovia = aeroviaRep.findAerovia(aeroviaId).get();
-
-        // if (aerovia == null)
-        //     return;
-
-        // float tempoVoo = aerovia.distancia / velocidade;
-
-        
-        // List<PlanoDeVoo> planos = servicoPlanos.consultaFodasse(data, aerovia.id);
-         
+        return slotsTodos.stream().filter(slotsLivres -> !altitudesOcupadas.contains(slotsLivres)).collect(Collectors.toList());
     }
-
-    public void consultaSlots(Date data, List<Integer> slotsHorarios) {
-
-    }
-
 }

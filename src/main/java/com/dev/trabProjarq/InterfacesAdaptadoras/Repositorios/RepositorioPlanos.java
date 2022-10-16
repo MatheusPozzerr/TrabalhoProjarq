@@ -1,13 +1,11 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras.Repositorios;
 
-import java.util.List;
-
-
+import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import com.dev.trabProjarq.dominio.services.IPlanosRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
+import java.util.List;
 
 @Component
 public class RepositorioPlanos implements IPlanosRep {
