@@ -2,7 +2,10 @@ package com.dev.trabProjarq.InterfacesAdaptadoras;
 
 import com.dev.trabProjarq.Aplicacao.ConsultarRotas;
 import com.dev.trabProjarq.Aplicacao.ConsultarSlots;
+import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
+import com.dev.trabProjarq.Aplicacao.VerificarPlanoVoo;
+import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +18,13 @@ public class TrafegoAereoMenu {
     private ConsultarRotas consultarRotas;
     private ConsultarSlots consultarSlots;
 
+    private VerificarPlanoVoo verificarPlanoVoo;
+
     @Autowired
-    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots) {
+    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots, VerificarPlanoVoo verificarPlanoVoo) {
         this.consultarRotas = consultarRotas;
         this.consultarSlots = consultarSlots;
+        this.verificarPlanoVoo = verificarPlanoVoo;
     }
 
     @GetMapping("/rotas")
@@ -32,5 +38,11 @@ public class TrafegoAereoMenu {
     public List<Integer> consultaAltitudesLivres(@PathVariable int aeroviaId, @RequestParam("data") String data,@RequestParam("horario") float horario, @RequestParam("velocidade") float velCruzeiro){
         LocalDate dataObj = LocalDate.parse(data);
         return this.consultarSlots.consultaAltitudesLivres(aeroviaId, dataObj, horario, velCruzeiro);
+    }
+
+    @PostMapping("/verifica-plano-voo")
+    @CrossOrigin(origins = "*")
+    public PlanoDeVoo verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
+        return this.verificarPlanoVoo.verificaPlanoDeVoo(planoVoo);
     }
 }

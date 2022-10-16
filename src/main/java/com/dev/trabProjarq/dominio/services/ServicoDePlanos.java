@@ -1,5 +1,6 @@
 package com.dev.trabProjarq.dominio.services;
 
+import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,15 @@ public class ServicoDePlanos {
         return planosFiltrados;
     }
 
-    public void verificarPlanoDeVoo() {
+    public PlanoDeVoo verificarPlanoDeVoo(PlanoVooDTO propostaDePlano) {
+        // valida se, para aquela porpostaDePlano,
+        // se em alguma das Aerovias da Rota
+        // existe alguma OcupacaoAerovia com
+        // o mesmo dia, mesmo horario e mesma altitude que a proposta
 
+        // se sim, retorna a lista de Aerovias já ocupadas,
+        // se não, retorna PlanoDeVoo cadastrado no banco
+        return new PlanoDeVoo();
     }
 
     public void cancelarPlanoDeVoo() {
