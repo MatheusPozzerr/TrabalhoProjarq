@@ -1,15 +1,13 @@
 package com.dev.trabProjarq.Aplicacao;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
+import com.dev.trabProjarq.dominio.entities.Rota;
+import com.dev.trabProjarq.dominio.services.ServicoDeRotas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
-import com.dev.trabProjarq.dominio.entities.Rota;
-
-import com.dev.trabProjarq.dominio.services.ServicoDeRotas;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
