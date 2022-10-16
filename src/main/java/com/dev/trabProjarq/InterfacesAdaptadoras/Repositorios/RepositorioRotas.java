@@ -17,6 +17,11 @@ public class RepositorioRotas implements IRotasRep{
     }
 
     @Override
+    public Rota findById(int rotaId) {
+        return this.rotasCrud.findById(rotaId).get();
+    }
+
+    @Override
     public List<Rota> findRotas(){
         return this.rotasCrud.findAll();
     }

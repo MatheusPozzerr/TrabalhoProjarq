@@ -3,41 +3,22 @@ package com.dev.trabProjarq.Aplicacao.DTO;
 import java.time.LocalDate;
 
 public class PlanoVooDTO {
-    private int rotaId;
+    public int rotaId;
 
-    private LocalDate data;
+    public LocalDate data;
 
-    private int horarioPartida;
+    public float horarioPartida;
 
-    private float velocidadeCruzeiro;
+    public float velCruzeiro;
 
-    private int altitude;
+    public int altitude;
 
-    public PlanoVooDTO(int rotaId, LocalDate data, int horarioPartida, float velocidadeCruzeiro, int altitude) {
+    public PlanoVooDTO(int rotaId, LocalDate data, float horarioPartida, float velCruzeiro, int altitude) {
         this.rotaId = rotaId;
         this.data = data;
         this.horarioPartida = horarioPartida;
-        this.velocidadeCruzeiro = velocidadeCruzeiro;
+        this.velCruzeiro = velCruzeiro;
         this.altitude = altitude;
     }
 
-    public int getRotaId() {
-        return rotaId;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public int getHorarioPartida() {
-        return horarioPartida;
-    }
-
-    public float getVelocidadeCruzeiro() {
-        return velocidadeCruzeiro;
-    }
-
-    public int getAltitude() {
-        return altitude;
-    }
 }

@@ -41,11 +41,7 @@ public class ServicoDeAerovias {
         
         slotsHorarios.add((float) Math.ceil(horario));
 
-        List<OcupacaoAerovia> ocupadas = this.ocupacaoRep.findAll().stream()
-            .filter(oa -> oa.aerovia.id == aeroviaId)
-            .filter(oa -> oa.data.equals(data))
-            .filter(oa -> slotsHorarios.contains((float) oa.slot_horario))
-            .collect(Collectors.toList());
+        List<OcupacaoAerovia> ocupadas = this.ocupacaoRep.findOcupadasSlots(aeroviaId, data, slotsHorarios);
 
         List<Integer> altitudesOcupadas = ocupadas.stream().map( ocupaAerovia -> ocupaAerovia.slot_altitude).collect(Collectors.toList());
 

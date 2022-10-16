@@ -5,6 +5,7 @@ import com.dev.trabProjarq.Aplicacao.ConsultarSlots;
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 import com.dev.trabProjarq.Aplicacao.VerificarPlanoVoo;
+import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class TrafegoAereoMenu {
 
     @PostMapping("/verifica-plano-voo")
     @CrossOrigin(origins = "*")
-    public PlanoDeVoo verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
+    public List<Aerovia> verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
         return this.verificarPlanoVoo.verificaPlanoDeVoo(planoVoo);
     }
 }
