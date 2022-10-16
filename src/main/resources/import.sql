@@ -59,5 +59,16 @@ Insert into rota_aerovia(id_rota, id_aerovia) VALUES (9, 13);
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (10, 14);
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (10, 15);
 
---Insert dos slots de horarios OBS: Atualmente SOMENTE PARA 1 AEROVIA
+--Insert dos slots de Ocupacao Aerovia
+
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 1, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 1, 19);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 1, 20);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 2, 10);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 2, 5);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 9, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 4, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 2, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 3, 18);
+
 

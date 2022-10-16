@@ -1,8 +1,10 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.dev.trabProjarq.Aplicacao.ConsultarRotas;
+import com.dev.trabProjarq.Aplicacao.ConsultarSlots;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/trafegoMenu")
 public class TrafegoAereoMenu {
     private ConsultarRotas consultarRotas;
+    private ConsultarSlots consultarSlots;
 
     @Autowired
-    public TrafegoAereoMenu(ConsultarRotas consultarRotas) {
+    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots) {
         this.consultarRotas = consultarRotas;
+        this.consultarSlots = consultarSlots;
     }
 
     @GetMapping("/rotas")
@@ -30,8 +34,8 @@ public class TrafegoAereoMenu {
 
     @GetMapping("/altitudes-livres")
     @CrossOrigin(origins = "*")
-    public List<SlotsDTO> consultaAltitudesLivres(int horario, float velocidade){
-        return this.consultarSlots.buscaAltitudesLivres(horario, velocidade);
+    public List<Integer> consultaAltitudesLivres(int aeroviaId, Date data, Float horario, float velCruzeiro){
+        return this.consultarSlots.consultaAltitudesLivres(aeroviaId, data, horario, velCruzeiro);
     }
 
 }

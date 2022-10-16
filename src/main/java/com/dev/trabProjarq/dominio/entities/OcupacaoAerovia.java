@@ -15,11 +15,13 @@ public class OcupacaoAerovia {
     
     public Date data;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn( name = "id_aerovia")
 	public Aerovia aerovia;
 
-	public int slotAltitude;
+	public int slot_altitude;
 
-	public int slotHorario;
+	public int slot_horario;
 	
     public OcupacaoAerovia() {
         

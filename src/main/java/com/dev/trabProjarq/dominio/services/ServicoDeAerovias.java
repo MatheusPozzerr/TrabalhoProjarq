@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 
 @Service
 public class ServicoDeAerovias {
@@ -23,15 +25,32 @@ public class ServicoDeAerovias {
         this.ocupacaoRep = ocupacaoRep;
     }
 
-    public void consultaSlotsLivres(int aeroviaId, Date data, int horario, float velCruzeiro){
+    public List<Integer> consultaSlotsLivres(int aeroviaId, Date data, Float horario, float velCruzeiro){
         Aerovia aerovia = aeroviaRep.findAerovia(aeroviaId).get();
 
-        List<Integer> slotsTodos = new ArrayList<>(Arrays.asList(1, 2, 3));
-        List<Integer> slotsHorarios = new ArrayList<>();
+        List<Integer> slotsTodos = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        List<Float> slotsHorarios = new ArrayList<>();
 
-        float tempoVoo = aerovia.distancia / velCruzeiro;
+        Float tempoVoo = aerovia.distancia / velCruzeiro;
+
+        tempoVoo = tempoVoo + horario;
+        
+        slotsHorarios.add((float) Math.floor(horario));
+
+        while(tempoVoo > horario){
+            slotsHorarios.add((float) Math.floor(horario));
+            tempoVoo--;
+        } 
+        
+        slotsHorarios.add((float) Math.ceil(horario));
 
         List<OcupacaoAerovia> ocupadas = this.ocupacaoRep.findOcupadasSlots(aeroviaId, data, slotsHorarios);
+
+        List<Integer> altitudesOcupadas = ocupadas.stream().map( ocupaAerovia -> ocupaAerovia.slot_altitude).collect(Collectors.toList());
+
+        slotsTodos = slotsTodos.stream().filter(slotsLivres -> !altitudesOcupadas.contains(slotsLivres)).collect(Collectors.toList());
+
+        return slotsTodos;
         // Aerovia aerovia = aeroviaRep.findAerovia(aeroviaId).get();
 
         // if (aerovia == null)
