@@ -1,17 +1,14 @@
 package com.dev.trabProjarq.dominio.services;
 
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.dominio.entities.Aeronave;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import com.dev.trabProjarq.dominio.entities.Rota;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 @Service
@@ -87,13 +84,11 @@ public class ServicoDePlanos {
                 propostaPlano.data, 
                 slotsHorarios
             );
-            if (ocupadas.size() > 0) {
-                trechosComProblemas.add(aerovia);
+            for(OcupacaoAerovia ocupacao: ocupadas) {
+                if (ocupacao.slot_altitude == propostaPlano.altitude) {
+                    trechosComProblemas.add(aerovia);
+                }
             }
-        }
-        
-        if (trechosComProblemas.size() > 0) {
-            return trechosComProblemas;
         }
 
         // TODO: return OK

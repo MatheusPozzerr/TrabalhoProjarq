@@ -8,6 +8,8 @@ import com.dev.trabProjarq.Aplicacao.VerificarPlanoVoo;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -43,7 +45,12 @@ public class TrafegoAereoMenu {
 
     @PostMapping("/verifica-plano-voo")
     @CrossOrigin(origins = "*")
-    public List<Aerovia> verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
-        return this.verificarPlanoVoo.verificaPlanoDeVoo(planoVoo);
+    public ResponseEntity<List<Aerovia>> verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
+        List<Aerovia> lista = this.verificarPlanoVoo.verificaPlanoDeVoo(planoVoo);
+
+        if(lista.size() >0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lista);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 }
