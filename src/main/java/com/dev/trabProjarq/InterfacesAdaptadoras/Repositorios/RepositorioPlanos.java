@@ -21,4 +21,6 @@ public class RepositorioPlanos implements IPlanosRep {
 		return this.planosCrud.findAll();
 	}
 
+	public PlanoDeVoo salvaPlano(PlanoDeVoo planoDeVoo){ return this.planosCrud.save(planoDeVoo);}
+
 }

@@ -1,12 +1,12 @@
 package com.dev.trabProjarq.dominio.services;
 
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.dominio.entities.Aerovia;
-import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
-import com.dev.trabProjarq.dominio.entities.Rota;
+import com.dev.trabProjarq.dominio.entities.*;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,8 +99,31 @@ public class ServicoDePlanos {
 
     }
 
-    public void autorizarPlanoDeVoo() {
+    public PlanoDeVoo autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
+        if(this.verificarPlanoDeVoo(planoVoo).isEmpty()){
+            Rota rota = this.rotasRep.findById(planoVoo.rotaId);
+            PlanoDeVoo planoDeVoo = new PlanoDeVoo(planoVoo.horarioPartida, planoVoo.data, planoVoo.altitude, planoVoo.velCruzeiro, rota);
+            for(Aerovia aerovia: rota.aerovias) {
+                List<Float> slotsHorarios = new ArrayList<>();
 
+                float tempoVoo = aerovia.distancia / planoDeVoo.velCruzeiro;
+
+                for(int i=0; i<tempoVoo; i++){
+                    slotsHorarios.add((float) Math.floor(planoDeVoo.horarioPartida+ i));
+                }
+
+                for(float slot: slotsHorarios){
+                    LocalDate date = planoVoo.data;
+                    if(slot > 24){
+                        slot = slot - 24;
+                        date = date.plusDays(1);
+                    }
+                    OcupacaoAerovia ocupacaoAerovia = new OcupacaoAerovia(date, aerovia, (int)planoVoo.altitude, (int)slot);
+                    this.ocupacaoRep.ocupa(ocupacaoAerovia);
+                }
+            }
+            return this.planosRep.salvaPlano(planoDeVoo);
+        }
+        return null;
     }
-
 }

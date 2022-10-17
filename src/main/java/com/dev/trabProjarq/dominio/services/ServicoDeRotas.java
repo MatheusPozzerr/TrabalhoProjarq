@@ -17,7 +17,6 @@ public class ServicoDeRotas {
     }
 
     public List<Rota> consultaRotas(String origem, String destino) {
-        System.out.println(rotasRep.findRotas().get(0).aerovias.get(0) + "VAPOVAPO");
         return rotasRep.findRotas().stream()
                 .filter(rota -> rota.destino.nome.toLowerCase().equals(destino.toLowerCase())
                         && rota.origem.nome.toLowerCase().equals(origem.toLowerCase()))

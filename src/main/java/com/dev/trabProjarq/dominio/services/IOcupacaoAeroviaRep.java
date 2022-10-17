@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IOcupacaoAeroviaRep {
     List<OcupacaoAerovia> findOcupadasSlots(int aeroviaId, LocalDate data, List<Float> slotsHorarios);
+
+    OcupacaoAerovia ocupa(OcupacaoAerovia ocupacaoAerovia);
 }

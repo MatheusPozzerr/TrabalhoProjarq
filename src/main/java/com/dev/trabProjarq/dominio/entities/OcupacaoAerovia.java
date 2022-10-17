@@ -1,10 +1,13 @@
 package com.dev.trabProjarq.dominio.entities;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 
 @Entity
+@AllArgsConstructor
 @Table(name = "ocupacao_aerovia")
 public class OcupacaoAerovia {
 
@@ -25,5 +28,11 @@ public class OcupacaoAerovia {
     public OcupacaoAerovia() {
         
     }
-    
+
+    public OcupacaoAerovia(LocalDate data, Aerovia aerovia, int slot_altitude, int slot_horario) {
+        this.data = data;
+        this.aerovia = aerovia;
+        this.slot_altitude = slot_altitude;
+        this.slot_horario = slot_horario;
+    }
 }

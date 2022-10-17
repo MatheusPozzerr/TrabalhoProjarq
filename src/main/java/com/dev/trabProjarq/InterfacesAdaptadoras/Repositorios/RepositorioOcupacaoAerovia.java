@@ -28,4 +28,9 @@ public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
 		.collect(Collectors.toList());
 	}
 
+	@Override
+	public OcupacaoAerovia ocupa(OcupacaoAerovia ocupacaoAerovia){
+		return ocupacaoAeroviaCrud.save(ocupacaoAerovia);
+	}
+
 }

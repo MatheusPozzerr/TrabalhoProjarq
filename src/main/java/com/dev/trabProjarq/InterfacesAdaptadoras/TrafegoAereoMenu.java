@@ -1,5 +1,6 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras;
 
+import com.dev.trabProjarq.Aplicacao.AutorizarPlanoDeVoo;
 import com.dev.trabProjarq.Aplicacao.ConsultarRotas;
 import com.dev.trabProjarq.Aplicacao.ConsultarSlots;
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
@@ -23,11 +24,14 @@ public class TrafegoAereoMenu {
 
     private VerificarPlanoVoo verificarPlanoVoo;
 
+    private AutorizarPlanoDeVoo autorizarPlanoDeVoo;
+
     @Autowired
-    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots, VerificarPlanoVoo verificarPlanoVoo) {
+    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots, VerificarPlanoVoo verificarPlanoVoo, AutorizarPlanoDeVoo autorizarPlanoDeVoo) {
         this.consultarRotas = consultarRotas;
         this.consultarSlots = consultarSlots;
         this.verificarPlanoVoo = verificarPlanoVoo;
+        this.autorizarPlanoDeVoo = autorizarPlanoDeVoo;
     }
 
     @GetMapping("/rotas")
@@ -48,9 +52,19 @@ public class TrafegoAereoMenu {
     public ResponseEntity<List<Aerovia>> verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
         List<Aerovia> lista = this.verificarPlanoVoo.verificaPlanoDeVoo(planoVoo);
 
-        if(lista.size() >0){
+        if(!lista.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lista);
         }
         return ResponseEntity.status(HttpStatus.OK).body(lista);
+    }
+
+    @PostMapping("/liberar-plano")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<PlanoDeVoo> liberarPlano(@RequestBody PlanoVooDTO planoVoo){
+        PlanoDeVoo plano = this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
+        if(plano != null){
+            return ResponseEntity.status(HttpStatus.OK).body(plano);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }
