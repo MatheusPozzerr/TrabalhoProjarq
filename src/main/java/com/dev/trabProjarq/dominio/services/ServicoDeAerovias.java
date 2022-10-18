@@ -1,5 +1,7 @@
 package com.dev.trabProjarq.dominio.services;
 
+import com.dev.trabProjarq.Aplicacao.DTO.PorcentagemOcupacao;
+import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDto;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,5 +49,22 @@ public class ServicoDeAerovias {
         List<Integer> altitudesOcupadas = ocupadas.stream().map( ocupaAerovia -> ocupaAerovia.slot_altitude).collect(Collectors.toList());
 
         return slotsTodos.stream().filter(slotsLivres -> !altitudesOcupadas.contains(slotsLivres)).collect(Collectors.toList());
+    }
+
+    public RelatorioDto consultaPorcentagemOcupacao(int aeroviaId, LocalDate data){
+        List<OcupacaoAerovia> ocupacaoAerovias = this.ocupacaoRep.findAllOcupacaoAerovias(aeroviaId, data);
+        List<OcupacaoAerovia> ocupadasPorSlot = new ArrayList<>();
+        
+        List<PorcentagemOcupacao> listaOcupacao = new ArrayList<>();
+
+        List<Integer> slotsTodos = new ArrayList<>(Arrays.asList(25000, 26000, 27000, 28000, 29000, 30000, 31000, 32000, 33000, 34000));
+        
+        for(Integer slotAltitude: slotsTodos){
+            ocupadasPorSlot = ocupacaoAerovias.stream().filter(ocupacaoAerovia -> ocupacaoAerovia.slot_altitude == slotAltitude).collect(Collectors.toList());
+            listaOcupacao.add(new PorcentagemOcupacao( slotAltitude, (float)(ocupadasPorSlot.size() * 100) / 24 ));
+            ocupadasPorSlot.clear();
+        }
+
+        return new RelatorioDto(listaOcupacao);
     }
 }

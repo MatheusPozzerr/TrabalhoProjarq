@@ -2,6 +2,7 @@ package com.dev.trabProjarq.InterfacesAdaptadoras;
 
 import com.dev.trabProjarq.Aplicacao.*;
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
+import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDto;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
@@ -18,6 +19,7 @@ import java.util.List;
 public class TrafegoAereoMenu {
     private ConsultarRotas consultarRotas;
     private ConsultarSlots consultarSlots;
+    private GerarRelatorio gerarRelatorio;
 
     private VerificarPlanoVoo verificarPlanoVoo;
 
@@ -26,33 +28,38 @@ public class TrafegoAereoMenu {
     private CancelaPlanoDeVoo cancelaPlanoDeVoo;
 
     @Autowired
-    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots, VerificarPlanoVoo verificarPlanoVoo, AutorizarPlanoDeVoo autorizarPlanoDeVoo, CancelaPlanoDeVoo cancelaPlanoDeVoo) {
+    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots,
+            VerificarPlanoVoo verificarPlanoVoo, AutorizarPlanoDeVoo autorizarPlanoDeVoo,
+            CancelaPlanoDeVoo cancelaPlanoDeVoo, GerarRelatorio gerarRelatorio) {
+        this.gerarRelatorio = gerarRelatorio;
         this.consultarRotas = consultarRotas;
         this.consultarSlots = consultarSlots;
         this.verificarPlanoVoo = verificarPlanoVoo;
         this.autorizarPlanoDeVoo = autorizarPlanoDeVoo;
-        this.cancelaPlanoDeVoo =  cancelaPlanoDeVoo;
+        this.cancelaPlanoDeVoo = cancelaPlanoDeVoo;
     }
 
     @GetMapping("/rotas")
     @CrossOrigin(origins = "*")
-    public List<RotaDTO> consultaRotasDestinos(@RequestParam("destino") String destino, @RequestParam("origem") String origem) {
+    public List<RotaDTO> consultaRotasDestinos(@RequestParam("destino") String destino,
+            @RequestParam("origem") String origem) {
         return this.consultarRotas.buscaRotasDestino(destino, origem);
     }
 
     @GetMapping("/altitudes-livres/{aeroviaId}")
     @CrossOrigin(origins = "*")
-    public List<Integer> consultaAltitudesLivres(@PathVariable int aeroviaId, @RequestParam("data") String data,@RequestParam("horario") float horario, @RequestParam("velocidade") float velCruzeiro){
+    public List<Integer> consultaAltitudesLivres(@PathVariable int aeroviaId, @RequestParam("data") String data,
+            @RequestParam("horario") float horario, @RequestParam("velocidade") float velCruzeiro) {
         LocalDate dataObj = LocalDate.parse(data);
         return this.consultarSlots.consultaAltitudesLivres(aeroviaId, dataObj, horario, velCruzeiro);
     }
 
     @PostMapping("/verifica-plano-voo")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<List<Aerovia>> verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo){
+    public ResponseEntity<List<Aerovia>> verificaPlanoDeVoo(@RequestBody PlanoVooDTO planoVoo) {
         List<Aerovia> lista = this.verificarPlanoVoo.verificaPlanoDeVoo(planoVoo);
 
-        if(!lista.isEmpty()){
+        if (!lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lista);
         }
         return ResponseEntity.status(HttpStatus.OK).body(lista);
@@ -60,9 +67,9 @@ public class TrafegoAereoMenu {
 
     @PostMapping("/liberar-plano")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoDeVoo> liberarPlano(@RequestBody PlanoVooDTO planoVoo){
+    public ResponseEntity<PlanoDeVoo> liberarPlano(@RequestBody PlanoVooDTO planoVoo) {
         PlanoDeVoo plano = this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
-        if(plano != null){
+        if (plano != null) {
             return ResponseEntity.status(HttpStatus.OK).body(plano);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -70,12 +77,19 @@ public class TrafegoAereoMenu {
 
     @DeleteMapping("cancela-plano")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoDeVoo> cancelaPlano(@RequestParam("planoId") int planoId){
+    public ResponseEntity<PlanoDeVoo> cancelaPlano(@RequestParam("planoId") int planoId) {
         PlanoDeVoo plano = this.cancelaPlanoDeVoo.cancelaPlano(planoId);
 
-        if(plano == null){
+        if (plano == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(plano);
         }
         return ResponseEntity.status(HttpStatus.OK).body(plano);
+    }
+
+    @GetMapping("/relatorio/{aeroviaId}")
+    @CrossOrigin(origins = "*")
+    public RelatorioDto geraRelatorio(@PathVariable int aeroviaId,  @RequestParam("data") String data){
+        LocalDate dataObj = LocalDate.parse(data);
+        return this.gerarRelatorio.geraRelatorio(aeroviaId, dataObj);
     }
 }

@@ -38,4 +38,11 @@ public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
 	public void removeOcupacao(OcupacaoAerovia ocupacaoAerovia) {
 		this.ocupacaoAeroviaCrud.delete(ocupacaoAerovia);
 	}
+
+	@Override
+	public List<OcupacaoAerovia> findAllOcupacaoAerovias(int aeroviaId, LocalDate data){
+		return ocupacaoAeroviaCrud.findAll().stream().filter(oa -> oa.aerovia.id == aeroviaId)
+		.filter(oa -> oa.data.equals(data))
+		.collect(Collectors.toList());
+	}
 }
