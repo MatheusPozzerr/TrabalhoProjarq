@@ -70,5 +70,6 @@ Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALU
 Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 28000, 18);
 Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 26000, 18);
 Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 27000, 18);
+Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-02-03', 1, 34000, 18);
 
-
+Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (34000, '2022-02-03', 18, 800, 1);

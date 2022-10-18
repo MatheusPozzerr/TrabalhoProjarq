@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -91,12 +92,35 @@ public class ServicoDePlanos {
             }
         }
 
-        // TODO: return OK
         return trechosComProblemas;
     }
 
-    public void cancelarPlanoDeVoo() {
+    public PlanoDeVoo cancelarPlanoDeVoo(int id) {
+        PlanoDeVoo plano = this.planosRep.findPlanoById(id);
+        if(plano != null){
+            Rota rota = plano.rota;
+            List<Aerovia> aerovias = rota.aerovias;
 
+            for(Aerovia aerovia: aerovias) {
+                List<Float> slotsHorarios = new ArrayList<>();
+
+                float tempoVoo = aerovia.distancia / plano.velCruzeiro;
+
+                for (int i = 0; i < tempoVoo; i++) {
+                    slotsHorarios.add((float) Math.floor(plano.horarioPartida+i));
+                }
+                List<OcupacaoAerovia> slotsOcupados = this.ocupacaoRep.findOcupadasSlots(aerovia.id, plano.data, slotsHorarios).stream()
+                        .filter(o -> o.slot_altitude == plano.altitude)
+                        .collect(Collectors.toList());
+
+                for (OcupacaoAerovia slot : slotsOcupados) {
+                    this.ocupacaoRep.removeOcupacao(slot);
+                }
+            }
+            this.planosRep.removePlano(plano);
+        }
+
+        return plano;
     }
 
     public PlanoDeVoo autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {

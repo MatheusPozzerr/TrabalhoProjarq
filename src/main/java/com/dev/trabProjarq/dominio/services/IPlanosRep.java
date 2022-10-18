@@ -9,5 +9,9 @@ public interface IPlanosRep {
     List<PlanoDeVoo> findPlanos();
 
     PlanoDeVoo salvaPlano(PlanoDeVoo planoDeVoo);
+
+    PlanoDeVoo findPlanoById(int planoId);
+
+    void removePlano(PlanoDeVoo plano);
 }
 

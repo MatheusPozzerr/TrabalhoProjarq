@@ -1,6 +1,7 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras.Repositorios;
 
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
+import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import com.dev.trabProjarq.dominio.services.IOcupacaoAeroviaRep;
 
 import java.time.LocalDate;
@@ -33,4 +34,8 @@ public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
 		return ocupacaoAeroviaCrud.save(ocupacaoAerovia);
 	}
 
+	@Override
+	public void removeOcupacao(OcupacaoAerovia ocupacaoAerovia) {
+		this.ocupacaoAeroviaCrud.delete(ocupacaoAerovia);
+	}
 }

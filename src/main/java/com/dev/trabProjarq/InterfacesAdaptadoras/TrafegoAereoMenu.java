@@ -1,11 +1,8 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras;
 
-import com.dev.trabProjarq.Aplicacao.AutorizarPlanoDeVoo;
-import com.dev.trabProjarq.Aplicacao.ConsultarRotas;
-import com.dev.trabProjarq.Aplicacao.ConsultarSlots;
+import com.dev.trabProjarq.Aplicacao.*;
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
-import com.dev.trabProjarq.Aplicacao.VerificarPlanoVoo;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +23,15 @@ public class TrafegoAereoMenu {
 
     private AutorizarPlanoDeVoo autorizarPlanoDeVoo;
 
+    private CancelaPlanoDeVoo cancelaPlanoDeVoo;
+
     @Autowired
-    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots, VerificarPlanoVoo verificarPlanoVoo, AutorizarPlanoDeVoo autorizarPlanoDeVoo) {
+    public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots, VerificarPlanoVoo verificarPlanoVoo, AutorizarPlanoDeVoo autorizarPlanoDeVoo, CancelaPlanoDeVoo cancelaPlanoDeVoo) {
         this.consultarRotas = consultarRotas;
         this.consultarSlots = consultarSlots;
         this.verificarPlanoVoo = verificarPlanoVoo;
         this.autorizarPlanoDeVoo = autorizarPlanoDeVoo;
+        this.cancelaPlanoDeVoo =  cancelaPlanoDeVoo;
     }
 
     @GetMapping("/rotas")
@@ -66,5 +66,16 @@ public class TrafegoAereoMenu {
             return ResponseEntity.status(HttpStatus.OK).body(plano);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @DeleteMapping("cancela-plano")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<PlanoDeVoo> cancelaPlano(@RequestParam("planoId") int planoId){
+        PlanoDeVoo plano = this.cancelaPlanoDeVoo.cancelaPlano(planoId);
+
+        if(plano == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(plano);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(plano);
     }
 }
