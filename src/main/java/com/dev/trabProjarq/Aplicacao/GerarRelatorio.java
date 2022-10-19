@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDto;
+import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDTO;
 import com.dev.trabProjarq.dominio.services.ServicoDeAerovias;
 
 @Component
@@ -17,7 +17,7 @@ public class GerarRelatorio {
         this.servicoDeAerovias = servicoDeAerovias;
     }
 
-    public RelatorioDto geraRelatorio(int aeroviaId, LocalDate data){
+    public RelatorioDTO geraRelatorio(int aeroviaId, LocalDate data){
         return this.servicoDeAerovias.consultaPorcentagemOcupacao(aeroviaId, data);
     }
 }

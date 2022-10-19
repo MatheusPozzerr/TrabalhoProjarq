@@ -2,7 +2,7 @@ package com.dev.trabProjarq.InterfacesAdaptadoras;
 
 import com.dev.trabProjarq.Aplicacao.*;
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDto;
+import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
@@ -65,7 +65,7 @@ public class TrafegoAereoMenu {
         return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
-    @PostMapping("/liberar-plano")
+    @PostMapping("/libera-plano")
     @CrossOrigin(origins = "*")
     public ResponseEntity<PlanoDeVoo> liberarPlano(@RequestBody PlanoVooDTO planoVoo) {
         PlanoDeVoo plano = this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
@@ -75,9 +75,9 @@ public class TrafegoAereoMenu {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
-    @DeleteMapping("cancela-plano")
+    @DeleteMapping("/cancela-plano/{planoId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoDeVoo> cancelaPlano(@RequestParam("planoId") int planoId) {
+    public ResponseEntity<PlanoDeVoo> cancelaPlano(@PathVariable int planoId) {
         PlanoDeVoo plano = this.cancelaPlanoDeVoo.cancelaPlano(planoId);
 
         if (plano == null) {
@@ -88,7 +88,7 @@ public class TrafegoAereoMenu {
 
     @GetMapping("/relatorio/{aeroviaId}")
     @CrossOrigin(origins = "*")
-    public RelatorioDto geraRelatorio(@PathVariable int aeroviaId,  @RequestParam("data") String data){
+    public RelatorioDTO geraRelatorio(@PathVariable int aeroviaId, @RequestParam("data") String data){
         LocalDate dataObj = LocalDate.parse(data);
         return this.gerarRelatorio.geraRelatorio(aeroviaId, dataObj);
     }

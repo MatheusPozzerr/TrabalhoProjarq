@@ -1,7 +1,7 @@
 package com.dev.trabProjarq.dominio.services;
 
-import com.dev.trabProjarq.Aplicacao.DTO.PorcentagemOcupacao;
-import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDto;
+import com.dev.trabProjarq.Aplicacao.DTO.PorcentagemOcupacaoDTO;
+import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,20 +50,20 @@ public class ServicoDeAerovias {
         return slotsTodos.stream().filter(slotsLivres -> !altitudesOcupadas.contains(slotsLivres)).collect(Collectors.toList());
     }
 
-    public RelatorioDto consultaPorcentagemOcupacao(int aeroviaId, LocalDate data){
-        List<OcupacaoAerovia> ocupacaoAerovias = this.ocupacaoRep.findAllOcupacaoAerovias(aeroviaId, data);
-        List<OcupacaoAerovia> ocupadasPorSlot = new ArrayList<>();
+    public RelatorioDTO consultaPorcentagemOcupacao(int aeroviaId, LocalDate data){
+        List<OcupacaoAerovia> ocupacaoAerovias = this.ocupacaoRep.findAllOcupacaoAeroviasByData(aeroviaId, data);
         
-        List<PorcentagemOcupacao> listaOcupacao = new ArrayList<>();
+        List<PorcentagemOcupacaoDTO> listaOcupacao = new ArrayList<>();
 
         List<Integer> slotsTodos = new ArrayList<>(Arrays.asList(25000, 26000, 27000, 28000, 29000, 30000, 31000, 32000, 33000, 34000));
         
         for(Integer slotAltitude: slotsTodos){
-            ocupadasPorSlot = ocupacaoAerovias.stream().filter(ocupacaoAerovia -> ocupacaoAerovia.slot_altitude == slotAltitude).collect(Collectors.toList());
-            listaOcupacao.add(new PorcentagemOcupacao( slotAltitude, (float)(ocupadasPorSlot.size() * 100) / 24 ));
+            List<OcupacaoAerovia> ocupadasPorSlot = ocupacaoAerovias.stream().filter(ocupacaoAerovia -> ocupacaoAerovia.slot_altitude == slotAltitude).collect(Collectors.toList());
+            float porcentagem = Float.parseFloat(String.format("%.2f", ((ocupadasPorSlot.size() * 100) / 24.0)));
+            listaOcupacao.add(new PorcentagemOcupacaoDTO( slotAltitude, porcentagem));
             ocupadasPorSlot.clear();
         }
 
-        return new RelatorioDto(listaOcupacao);
+        return new RelatorioDTO(listaOcupacao);
     }
 }

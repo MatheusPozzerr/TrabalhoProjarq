@@ -40,7 +40,7 @@ public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
 	}
 
 	@Override
-	public List<OcupacaoAerovia> findAllOcupacaoAerovias(int aeroviaId, LocalDate data){
+	public List<OcupacaoAerovia> findAllOcupacaoAeroviasByData(int aeroviaId, LocalDate data){
 		return ocupacaoAeroviaCrud.findAll().stream().filter(oa -> oa.aerovia.id == aeroviaId)
 		.filter(oa -> oa.data.equals(data))
 		.collect(Collectors.toList());

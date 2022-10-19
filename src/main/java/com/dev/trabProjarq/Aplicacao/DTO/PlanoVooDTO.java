@@ -20,5 +20,4 @@ public class PlanoVooDTO {
         this.velCruzeiro = velCruzeiro;
         this.altitude = altitude;
     }
-
 }
