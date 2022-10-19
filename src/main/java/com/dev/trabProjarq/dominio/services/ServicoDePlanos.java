@@ -25,43 +25,7 @@ public class ServicoDePlanos {
         this.ocupacaoRep = ocupacaoRep;
     }
 
-    // public List<PlanoDeVoo> consultaFodasse(Date data, int horario, int aeroviaId) {
-    //     List<PlanoDeVoo> planos = this.planosRep.findPlanos().stream()
-    //             .filter(plano -> plano.data.equals(data))
-    //             .collect(Collectors.toList());
-
-    //     List<PlanoDeVoo> planosFiltrados = new ArrayList<>();
-
-    //     for (PlanoDeVoo plano : planos) {
-    //         List<Aerovia> aerovias = plano.rota.aerovias;
-    //         for (Aerovia aerovia : aerovias) {
-    //             if (aerovia.id == aeroviaId) {
-    //                 float tempoVoo = aerovia.distancia / plano.velCruzeiro;
-
-    //                 int diff = (int)Math.ceil(Math.abs(plano.horarioPartida - tempoVoo));
-
-    //                 List<Integer> slotsOcupados = new ArrayList<>();
-
-    //                 slotsOcupados.add((int)Math.floor(plano.horarioPartida));
-    //                 for (int i=0; i<diff; i++) {
-    //                     slotsOcupados.add((int)Math.floor(plano.horarioPartida) + i);
-    //                 }
-
-    //                 planosFiltrados.add(plano);
-    //             }
-    //         }
-    //     }
-
-    //     return planosFiltrados;
-    // }
-
     public List<Aerovia> verificarPlanoDeVoo(PlanoVooDTO propostaPlano) {
-        /**
-         * Verificar um plano de voo: verifica se um plano de voo pode ser liberado. 
-         *      - O plano de  voo  deve  indicar  a  data,  horário  e  o  número  do  voo,  a  rota  escolhida,  a 
-         *          velocidade de cruzeiro e a altitude que pretende ser utilizada. 
-         *      - Retorna os trechos com problema ou um ok, conforme o caso. 
-         */
         Rota rotaEscolhida = this.rotasRep.findById(propostaPlano.rotaId);
 
         List<Aerovia> trechosComProblemas = new ArrayList<>();
