@@ -1,12 +1,11 @@
-package com.dev.trabProjarq.Aplicacao;
+package com.example.servicoplanodevoo.Aplicacao;
 
-import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.dominio.entities.Aerovia;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
-import com.dev.trabProjarq.dominio.services.ServicoDePlanos;
 
 import java.util.List;
 
+import com.example.servicoplanodevoo.Aplicacao.DTO.PlanoVooDTO;
+import com.example.servicoplanodevoo.dominio.entities.PlanoDeVoo;
+import com.example.servicoplanodevoo.dominio.services.ServicoDePlanos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

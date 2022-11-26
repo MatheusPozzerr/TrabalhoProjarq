@@ -1,8 +1,7 @@
-package com.dev.trabProjarq.dominio.services;
+package com.example.servicoplanodevoo.dominio.services;
 
-import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.dominio.entities.*;
-import net.bytebuddy.asm.Advice;
+import com.example.servicoplanodevoo.Aplicacao.DTO.PlanoVooDTO;
+import com.example.servicoplanodevoo.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,8 @@ public class ServicoDePlanos {
         return plano;
     }
 
-    public PlanoDeVoo autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
+    public PlanoDeVoo autorizarPlanoDeVoo(PlanoVooDTO planoDeVooDTO) {
+        PlanoDeVoo planoDeVoo = new PlanoDeVoo(planoDeVooDTO.horarioPartida, planoDeVooDTO.data, planoDeVooDTO.altitude, planoDeVooDTO.velCruzeiro, planoDeVooDTO.rotaId);
         return this.planosRep.salvaPlano(planoDeVoo);
     }
 }

@@ -1,8 +1,8 @@
-package com.dev.trabProjarq.InterfacesAdaptadoras.Repositorios;
+package com.example.servicoplanodevoo.InterfacesAdaptadoras.Repositorios;
 
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
-import com.dev.trabProjarq.dominio.entities.Rota;
-import com.dev.trabProjarq.dominio.services.IPlanosRep;
+
+import com.example.servicoplanodevoo.dominio.entities.PlanoDeVoo;
+import com.example.servicoplanodevoo.dominio.services.IPlanosRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,6 @@
-package com.dev.trabProjarq.dominio.services;
+package com.example.servicoplanodevoo.dominio.services;
 
-import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
+import com.example.servicoplanodevoo.dominio.entities.PlanoDeVoo;
 
 import java.util.List;
 
@@ -13,4 +12,3 @@ public interface IPlanosRep {
     PlanoDeVoo findPlanoById(int planoId);
 
 }
-

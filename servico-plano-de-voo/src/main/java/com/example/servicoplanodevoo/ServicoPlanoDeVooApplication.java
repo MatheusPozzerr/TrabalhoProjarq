@@ -9,5 +9,4 @@ public class ServicoPlanoDeVooApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServicoPlanoDeVooApplication.class, args);
 	}
-
 }

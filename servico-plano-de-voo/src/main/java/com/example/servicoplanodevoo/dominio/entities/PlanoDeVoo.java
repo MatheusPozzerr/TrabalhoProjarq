@@ -1,7 +1,6 @@
-package com.dev.trabProjarq.dominio.entities;
+package com.example.servicoplanodevoo.dominio.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "plano_voo")
 public class PlanoDeVoo {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
@@ -34,12 +33,12 @@ public class PlanoDeVoo {
 
     }
 
-    public PlanoDeVoo(float horarioPartida, LocalDate data, int altitude, float velCruzeiro, Rota rota) {
+    public PlanoDeVoo(float horarioPartida, LocalDate data, int altitude, float velCruzeiro, int id_rota) {
         this.horarioPartida = horarioPartida;
         this.data = data;
         this.altitude = altitude;
         this.velCruzeiro = velCruzeiro;
-        this.rota = rota;
+        this.id_rota = id_rota;
         this.isCanceled = false;
     }
 }

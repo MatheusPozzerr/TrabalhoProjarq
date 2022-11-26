@@ -1,4 +1,4 @@
-package com.dev.trabProjarq.Aplicacao.DTO;
+package com.example.servicoplanodevoo.Aplicacao.DTO;
 
 import java.time.LocalDate;
 
