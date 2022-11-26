@@ -14,13 +14,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class ServicoDePlanos {
-    private IPlanosRep planosRep;
     private IRotasRep rotasRep;
     private IOcupacaoAeroviaRep ocupacaoRep;
 
     @Autowired
-    public ServicoDePlanos(IPlanosRep planosRep, IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep) {
-        this.planosRep = planosRep;
+    public ServicoDePlanos(IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep) {
         this.rotasRep = rotasRep;
         this.ocupacaoRep = ocupacaoRep;
     }
@@ -59,8 +57,9 @@ public class ServicoDePlanos {
         return trechosComProblemas;
     }
 
-    public PlanoDeVoo cancelarPlanoDeVoo(int id) {
-        PlanoDeVoo plano = this.planosRep.findPlanoById(id);
+    public PlanoDeVooDTO cancelarPlanoDeVoo(int id) {
+        // TODO: chamar MS para cancelar aqui
+        PlanoDeVooDTO plano = this.planosRep.findPlanoById(id);
         if(plano != null){
             Rota rota = plano.rota;
             List<Aerovia> aerovias = rota.aerovias;
@@ -81,23 +80,21 @@ public class ServicoDePlanos {
                     this.ocupacaoRep.removeOcupacao(slot);
                 }
             }
-            this.planosRep.removePlano(plano);
         }
-
         return plano;
     }
 
     public PlanoDeVoo autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
         if(this.verificarPlanoDeVoo(planoVoo).isEmpty()){
             Rota rota = this.rotasRep.findById(planoVoo.rotaId);
-            PlanoDeVoo planoDeVoo = new PlanoDeVoo(planoVoo.horarioPartida, planoVoo.data, planoVoo.altitude, planoVoo.velCruzeiro, rota);
+            // PlanoDeVoo planoDeVoo = new PlanoDeVoo(planoVoo.horarioPartida, planoVoo.data, planoVoo.altitude, planoVoo.velCruzeiro, rota);
             for(Aerovia aerovia: rota.aerovias) {
                 List<Float> slotsHorarios = new ArrayList<>();
 
-                float tempoVoo = aerovia.distancia / planoDeVoo.velCruzeiro;
+                float tempoVoo = aerovia.distancia / planoVoo.velCruzeiro;
 
                 for(int i=0; i<tempoVoo; i++){
-                    slotsHorarios.add((float) Math.floor(planoDeVoo.horarioPartida+ i));
+                    slotsHorarios.add((float) Math.floor(planoVoo.horarioPartida+ i));
                 }
 
                 for(float slot: slotsHorarios){
@@ -110,7 +107,8 @@ public class ServicoDePlanos {
                     this.ocupacaoRep.ocupa(ocupacaoAerovia);
                 }
             }
-            return this.planosRep.salvaPlano(planoDeVoo);
+            // TODO: chamar outro MS aqui
+            return this.planosRep.salvaPlano(planoVoo);
         }
         return null;
     }

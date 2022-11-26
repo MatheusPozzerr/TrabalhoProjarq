@@ -29,7 +29,4 @@ public class RepositorioPlanos implements IPlanosRep {
 
 	public PlanoDeVoo salvaPlano(PlanoDeVoo planoDeVoo){ return this.planosCrud.save(planoDeVoo);}
 
-	public void removePlano(PlanoDeVoo plano){
-		this.planosCrud.delete(plano);
-	}
 }

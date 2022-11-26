@@ -22,9 +22,13 @@ public class PlanoDeVoo {
     public float altitude;
     public float velCruzeiro;
 
-    @ManyToOne
-    @JoinColumn( name = "id_rota")
-    public Rota rota;
+    public int id_rota;
+
+    // @ManyToOne
+    // @JoinColumn( name = "id_rota")
+    // public Rota rota;
+
+    public boolean isCanceled;
 
     public PlanoDeVoo() {
 
@@ -36,5 +40,6 @@ public class PlanoDeVoo {
         this.altitude = altitude;
         this.velCruzeiro = velCruzeiro;
         this.rota = rota;
+        this.isCanceled = false;
     }
 }
