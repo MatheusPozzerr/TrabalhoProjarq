@@ -1,7 +1,10 @@
 package com.dev.trabProjarq.dominio.services;
 
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
-import com.dev.trabProjarq.dominio.entities.*;
+import com.dev.trabProjarq.dominio.entities.Aerovia;
+import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
+import com.dev.trabProjarq.dominio.entities.Rota;
+import com.dev.trabProjarq.dominio.services.Proxy.MicroservicoDePlanosProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +18,13 @@ import java.util.stream.Collectors;
 public class ServicoDePlanos {
     private IRotasRep rotasRep;
     private IOcupacaoAeroviaRep ocupacaoRep;
+    private MicroservicoDePlanosProxy microservicoDePlanosProxy;
 
     @Autowired
-    public ServicoDePlanos(IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep) {
+    public ServicoDePlanos(IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep, MicroservicoDePlanosProxy microservicoDePlanosProxy) {
         this.rotasRep = rotasRep;
         this.ocupacaoRep = ocupacaoRep;
+        this.microservicoDePlanosProxy = microservicoDePlanosProxy;
     }
 
     public List<Aerovia> verificarPlanoDeVoo(PlanoVooDTO propostaPlano) {
@@ -56,23 +61,24 @@ public class ServicoDePlanos {
         return trechosComProblemas;
     }
 
-    public PlanoDeVooDTO cancelarPlanoDeVoo(int id) {
+    public PlanoVooDTO cancelarPlanoDeVoo(int id) {
         // TODO: chamar MS para cancelar aqui
-        PlanoDeVooDTO plano = this.planosRep.findPlanoById(id);
-        if(plano != null){
-            Rota rota = plano.rota;
+        //PlanoDeVoo plano = this.planosRep.findPlanoById(id);
+        PlanoVooDTO planoDeVoo = microservicoDePlanosProxy.cancelaPlano(id);
+        if(planoDeVoo != null){
+            Rota rota = this.rotasRep.findById(planoDeVoo.rotaId);
             List<Aerovia> aerovias = rota.aerovias;
 
             for(Aerovia aerovia: aerovias) {
                 List<Float> slotsHorarios = new ArrayList<>();
 
-                float tempoVoo = aerovia.distancia / plano.velCruzeiro;
+                float tempoVoo = aerovia.distancia / planoDeVoo.velCruzeiro;
 
                 for (int i = 0; i < tempoVoo; i++) {
-                    slotsHorarios.add((float) Math.floor(plano.horarioPartida+i));
+                    slotsHorarios.add((float) Math.floor(planoDeVoo.horarioPartida+i));
                 }
-                List<OcupacaoAerovia> slotsOcupados = this.ocupacaoRep.findOcupadasSlots(aerovia.id, plano.data, slotsHorarios).stream()
-                        .filter(o -> o.slot_altitude == plano.altitude)
+                List<OcupacaoAerovia> slotsOcupados = this.ocupacaoRep.findOcupadasSlots(aerovia.id, planoDeVoo.data, slotsHorarios).stream()
+                        .filter(o -> o.slot_altitude == planoDeVoo.altitude)
                         .collect(Collectors.toList());
 
                 for (OcupacaoAerovia slot : slotsOcupados) {
@@ -80,10 +86,10 @@ public class ServicoDePlanos {
                 }
             }
         }
-        return plano;
+        return planoDeVoo;
     }
 
-    public PlanoDeVoo autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
+    public PlanoVooDTO autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
         if(this.verificarPlanoDeVoo(planoVoo).isEmpty()){
             Rota rota = this.rotasRep.findById(planoVoo.rotaId);
             // PlanoDeVoo planoDeVoo = new PlanoDeVoo(planoVoo.horarioPartida, planoVoo.data, planoVoo.altitude, planoVoo.velCruzeiro, rota);
@@ -106,8 +112,10 @@ public class ServicoDePlanos {
                     this.ocupacaoRep.ocupa(ocupacaoAerovia);
                 }
             }
-            // TODO: chamar outro MS aqui
-            return this.planosRep.salvaPlano(planoVoo);
+            // TODO: chamar o outro MS aqui
+            PlanoVooDTO planoDeVoo = microservicoDePlanosProxy.cadastraPlano(planoVoo);
+            //return this.planosRep.salvaPlano(planoVoo);
+            return planoDeVoo;
         }
         return null;
     }

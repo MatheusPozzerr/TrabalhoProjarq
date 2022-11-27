@@ -5,7 +5,6 @@ import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,8 +66,8 @@ public class TrafegoAereoMenu {
 
     @PostMapping("/libera-plano")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoDeVoo> liberarPlano(@RequestBody PlanoVooDTO planoVoo) {
-        PlanoDeVoo plano = this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
+    public ResponseEntity<PlanoVooDTO> liberarPlano(@RequestBody PlanoVooDTO planoVoo) {
+        PlanoVooDTO plano = this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
         if (plano != null) {
             return ResponseEntity.status(HttpStatus.OK).body(plano);
         }
@@ -77,8 +76,8 @@ public class TrafegoAereoMenu {
 
     @DeleteMapping("/cancela-plano/{planoId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoDeVoo> cancelaPlano(@PathVariable int planoId) {
-        PlanoDeVoo plano = this.cancelaPlanoDeVoo.cancelaPlano(planoId);
+    public ResponseEntity<PlanoVooDTO> cancelaPlano(@PathVariable int planoId) {
+        PlanoVooDTO plano = this.cancelaPlanoDeVoo.cancelaPlano(planoId);
 
         if (plano == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(plano);

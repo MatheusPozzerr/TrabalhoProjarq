@@ -1,15 +1,13 @@
 package com.dev.trabProjarq.InterfacesAdaptadoras.Repositorios;
 
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
-import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import com.dev.trabProjarq.dominio.services.IOcupacaoAeroviaRep;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component
 public class RepositorioOcupacaoAerovia implements IOcupacaoAeroviaRep {
