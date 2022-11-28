@@ -15,7 +15,7 @@ public class AutorizarPlanoDeVoo {
         this.servicoDePlanos = servicoDePlanos;
     }
 
-    public PlanoVooDTO autorizaPlanoDeVoo(PlanoVooDTO planoVooDTO){
-        return this.servicoDePlanos.autorizarPlanoDeVoo(planoVooDTO);
+    public void autorizaPlanoDeVoo(PlanoVooDTO planoVooDTO){
+        this.servicoDePlanos.autorizarPlanoDeVoo(planoVooDTO);
     }
 }

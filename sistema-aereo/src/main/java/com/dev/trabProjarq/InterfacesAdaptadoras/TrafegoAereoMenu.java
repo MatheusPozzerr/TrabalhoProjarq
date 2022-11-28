@@ -5,6 +5,8 @@ import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
+import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
+import com.dev.trabProjarq.dominio.services.Proxy.DeletaPlanoProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +22,13 @@ public class TrafegoAereoMenu {
     private ConsultarSlots consultarSlots;
     private GerarRelatorio gerarRelatorio;
 
+    private CancelaPlanoDeVoo cancelarPlanoDeVoo;
+
     private VerificarPlanoVoo verificarPlanoVoo;
 
     private AutorizarPlanoDeVoo autorizarPlanoDeVoo;
 
-    private CancelaPlanoDeVoo cancelaPlanoDeVoo;
+    private DeletaPlanoProxy proxy;
 
     @Autowired
     public TrafegoAereoMenu(ConsultarRotas consultarRotas, ConsultarSlots consultarSlots,
@@ -35,7 +39,7 @@ public class TrafegoAereoMenu {
         this.consultarSlots = consultarSlots;
         this.verificarPlanoVoo = verificarPlanoVoo;
         this.autorizarPlanoDeVoo = autorizarPlanoDeVoo;
-        this.cancelaPlanoDeVoo = cancelaPlanoDeVoo;
+        this.cancelarPlanoDeVoo = cancelaPlanoDeVoo;
     }
 
     @GetMapping("/rotas")
@@ -66,18 +70,15 @@ public class TrafegoAereoMenu {
 
     @PostMapping("/libera-plano")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoVooDTO> liberarPlano(@RequestBody PlanoVooDTO planoVoo) {
-        PlanoVooDTO plano = this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
-        if (plano != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(plano);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    public void liberarPlano(@RequestBody PlanoVooDTO planoVoo) {
+        this.autorizarPlanoDeVoo.autorizaPlanoDeVoo(planoVoo);
     }
 
     @DeleteMapping("/cancela-plano/{planoId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PlanoVooDTO> cancelaPlano(@PathVariable int planoId) {
-        PlanoVooDTO plano = this.cancelaPlanoDeVoo.cancelaPlano(planoId);
+    public ResponseEntity<PlanoDeVoo> cancelaPlano(@PathVariable int planoId) {
+
+        PlanoDeVoo plano = this.cancelarPlanoDeVoo.cancelaPlano(planoId);
 
         if (plano == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(plano);

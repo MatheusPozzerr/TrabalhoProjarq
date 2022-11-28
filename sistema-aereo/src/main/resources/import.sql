@@ -6,7 +6,7 @@ INSERT INTO ref_geo( latitude, longitude, nome) VALUES ( -70.033056, -50.243056,
 INSERT INTO ref_geo( latitude, longitude, nome) VALUES ( -42.033056, -12.243056, 'A5' ); --Aeroporto5
 INSERT INTO ref_geo( latitude, longitude, nome) VALUES ( -27.033056, -19.243056, 'R1' ); --Referencia1
 INSERT INTO ref_geo( latitude, longitude, nome) VALUES ( -19.033056, -40.243056, 'R2' ); --Referencia2
-
+--
 -- Insert das aerovias Onde o nome A indica Aeroporto e R referencia
 Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALUES ('AeroviaA1A2', 800, 1, 2);
 Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALUES ('AeroviaA2A1', 800, 2, 1);
@@ -23,7 +23,7 @@ Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALU
 Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALUES ('AeroviaR1A3', 150, 6, 3);
 Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALUES ('AeroviaA5R2', 1000, 5, 7);
 Insert into aerovia(nome, distancia, ref_geo_destiny_id, ref_geo_origin_id) VALUES ('AeroviaR2A1', 860, 7, 1);
-
+--
 -- Insert das rotas
 Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA1A2', 1, 2);
 Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA2A1', 2, 1);
@@ -35,7 +35,7 @@ Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA2A5'
 Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA3A2', 3, 2);
 Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA4A3', 4, 3);
 Insert into rota(nome, ref_geo_origin_id, ref_geo_destiny_id) VALUES ('RotaA5A1', 5, 1);
-
+--
 -- Insert da tabela intermediária ligando aerovias com as rotas
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (1, 1);
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (2, 2);
@@ -52,40 +52,40 @@ Insert into rota_aerovia(id_rota, id_aerovia) VALUES (9, 12);
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (9, 13);
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (10, 14);
 Insert into rota_aerovia(id_rota, id_aerovia) VALUES (10, 15);
-
--- Insert dos slots de Ocupacao Aerovia
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 1);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 2);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 3);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 4);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 5);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 6);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 7);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 8);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 19);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 20);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 21);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 26000, 10);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 26000, 5);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 26000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 27000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 28000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 33000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 34000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 12);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 12);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 13);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 14);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 14);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 18);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 22);
-Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 22);
-
--- Insert dos Planos de Voo
-Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (34000, '2022-10-19', 18, 800, 1);
-Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 12, 200, 8);
-Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 14, 600, 8);
-Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 18, 600, 8);
-Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 22, 850, 8);
+--
+-- -- Insert dos slots de Ocupacao Aerovia
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 1);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 2);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 3);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 4);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 5);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 6);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 7);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 8);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 19);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 20);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 25000, 21);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 26000, 10);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 26000, 5);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 26000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 27000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 28000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 33000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 1, 34000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 12);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 12);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 13);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 14);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 14);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 18);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 10, 30000, 22);
+-- Insert into ocupacao_aerovia(data, id_aerovia, slot_altitude, slot_horario) VALUES ('2022-10-19', 11, 30000, 22);
+--
+-- -- Insert dos Planos de Voo
+-- Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (34000, '2022-10-19', 18, 800, 1);
+-- Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 12, 200, 8);
+-- Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 14, 600, 8);
+-- Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 18, 600, 8);
+-- Insert into plano_voo(altitude, data, horario_partida, vel_cruzeiro, id_rota) VALUES (30000, '2022-10-19', 22, 850, 8);

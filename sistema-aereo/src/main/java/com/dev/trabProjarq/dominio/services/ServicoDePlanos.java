@@ -3,11 +3,12 @@ package com.dev.trabProjarq.dominio.services;
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
+import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import com.dev.trabProjarq.dominio.entities.Rota;
-import com.dev.trabProjarq.dominio.services.Proxy.MicroservicoDePlanosProxy;
+import com.dev.trabProjarq.dominio.services.Proxy.DeletaPlanoProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,16 @@ import java.util.stream.Collectors;
 public class ServicoDePlanos {
     private IRotasRep rotasRep;
     private IOcupacaoAeroviaRep ocupacaoRep;
-    private MicroservicoDePlanosProxy microservicoDePlanosProxy;
+    private final RabbitTemplate rabbitTemplate;
+
+    private DeletaPlanoProxy proxy;
 
     @Autowired
-    public ServicoDePlanos(IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep, MicroservicoDePlanosProxy microservicoDePlanosProxy) {
+    public ServicoDePlanos(IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep, RabbitTemplate rabbitTemplate, DeletaPlanoProxy proxy) {
         this.rotasRep = rotasRep;
         this.ocupacaoRep = ocupacaoRep;
-        this.microservicoDePlanosProxy = microservicoDePlanosProxy;
+        this.rabbitTemplate = rabbitTemplate;
+        this.proxy = proxy;
     }
 
     public List<Aerovia> verificarPlanoDeVoo(PlanoVooDTO propostaPlano) {
@@ -61,12 +65,10 @@ public class ServicoDePlanos {
         return trechosComProblemas;
     }
 
-    public PlanoVooDTO cancelarPlanoDeVoo(int id) {
-        // TODO: chamar MS para cancelar aqui
-        //PlanoDeVoo plano = this.planosRep.findPlanoById(id);
-        PlanoVooDTO planoDeVoo = microservicoDePlanosProxy.cancelaPlano(id);
+    public PlanoDeVoo cancelarPlanoDeVoo(int id) {
+        PlanoDeVoo planoDeVoo = this.proxy.cancelaPlanoDeVoo(id);
         if(planoDeVoo != null){
-            Rota rota = this.rotasRep.findById(planoDeVoo.rotaId);
+            Rota rota = this.rotasRep.findById(planoDeVoo.id_rota);
             List<Aerovia> aerovias = rota.aerovias;
 
             for(Aerovia aerovia: aerovias) {
@@ -89,10 +91,9 @@ public class ServicoDePlanos {
         return planoDeVoo;
     }
 
-    public PlanoVooDTO autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
+    public void autorizarPlanoDeVoo(PlanoVooDTO planoVoo) {
         if(this.verificarPlanoDeVoo(planoVoo).isEmpty()){
             Rota rota = this.rotasRep.findById(planoVoo.rotaId);
-            // PlanoDeVoo planoDeVoo = new PlanoDeVoo(planoVoo.horarioPartida, planoVoo.data, planoVoo.altitude, planoVoo.velCruzeiro, rota);
             for(Aerovia aerovia: rota.aerovias) {
                 List<Float> slotsHorarios = new ArrayList<>();
 
@@ -112,11 +113,8 @@ public class ServicoDePlanos {
                     this.ocupacaoRep.ocupa(ocupacaoAerovia);
                 }
             }
-            // TODO: chamar o outro MS aqui
-            PlanoVooDTO planoDeVoo = microservicoDePlanosProxy.cadastraPlano(planoVoo);
-            //return this.planosRep.salvaPlano(planoVoo);
-            return planoDeVoo;
+            String json = planoVoo.toJson();
+            rabbitTemplate.convertAndSend("spring-boot-exchange", "servico", json);
         }
-        return null;
     }
 }

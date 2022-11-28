@@ -27,6 +27,6 @@ public class RepositorioPlanos implements IPlanosRep {
 		return this.planosCrud.findById(planoId).get();
 	}
 
-	public PlanoDeVoo salvaPlano(PlanoDeVoo planoDeVoo){ return this.planosCrud.save(planoDeVoo);}
+	public PlanoDeVoo salvaPlano(PlanoDeVoo planoDeVoo){return this.planosCrud.save(planoDeVoo);}
 
 }
