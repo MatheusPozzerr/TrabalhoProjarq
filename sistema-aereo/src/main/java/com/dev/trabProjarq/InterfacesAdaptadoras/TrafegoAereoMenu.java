@@ -6,7 +6,7 @@ import com.dev.trabProjarq.Aplicacao.DTO.RelatorioDTO;
 import com.dev.trabProjarq.Aplicacao.DTO.RotaDTO;
 import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
-import com.dev.trabProjarq.dominio.services.Proxy.DeletaPlanoProxy;
+import com.dev.trabProjarq.InterfacesAdaptadoras.Proxy.DeletaPlanoProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

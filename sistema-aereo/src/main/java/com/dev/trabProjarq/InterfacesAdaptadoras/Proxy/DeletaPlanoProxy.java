@@ -1,4 +1,4 @@
-package com.dev.trabProjarq.dominio.services.Proxy;
+package com.dev.trabProjarq.InterfacesAdaptadoras.Proxy;
 
 import com.dev.trabProjarq.Aplicacao.DTO.PlanoVooDTO;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;

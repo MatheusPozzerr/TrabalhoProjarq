@@ -5,10 +5,8 @@ import com.dev.trabProjarq.dominio.entities.Aerovia;
 import com.dev.trabProjarq.dominio.entities.OcupacaoAerovia;
 import com.dev.trabProjarq.dominio.entities.PlanoDeVoo;
 import com.dev.trabProjarq.dominio.entities.Rota;
-import com.dev.trabProjarq.dominio.services.Proxy.DeletaPlanoProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +16,14 @@ import java.util.stream.Collectors;
 @Service
 public class ServicoDePlanos {
     private IRotasRep rotasRep;
+    private IPlanosRep planosRep;
     private IOcupacaoAeroviaRep ocupacaoRep;
-    private final RabbitTemplate rabbitTemplate;
-
-    private DeletaPlanoProxy proxy;
 
     @Autowired
-    public ServicoDePlanos(IRotasRep rotasRep, IOcupacaoAeroviaRep ocupacaoRep, RabbitTemplate rabbitTemplate, DeletaPlanoProxy proxy) {
+    public ServicoDePlanos(IRotasRep rotasRep, IPlanosRep planosRep, IOcupacaoAeroviaRep ocupacaoRep) {
         this.rotasRep = rotasRep;
+        this.planosRep = planosRep;
         this.ocupacaoRep = ocupacaoRep;
-        this.rabbitTemplate = rabbitTemplate;
-        this.proxy = proxy;
     }
 
     public List<Aerovia> verificarPlanoDeVoo(PlanoVooDTO propostaPlano) {
@@ -66,7 +61,7 @@ public class ServicoDePlanos {
     }
 
     public PlanoDeVoo cancelarPlanoDeVoo(int id) {
-        PlanoDeVoo planoDeVoo = this.proxy.cancelaPlanoDeVoo(id);
+        PlanoDeVoo planoDeVoo = this.planosRep.cancelaPlanoDeVoo(id);
         if(planoDeVoo != null){
             Rota rota = this.rotasRep.findById(planoDeVoo.id_rota);
             List<Aerovia> aerovias = rota.aerovias;
@@ -113,8 +108,7 @@ public class ServicoDePlanos {
                     this.ocupacaoRep.ocupa(ocupacaoAerovia);
                 }
             }
-            String json = planoVoo.toJson();
-            rabbitTemplate.convertAndSend("spring-boot-exchange", "servico", json);
+            this.planosRep.autorizarPlanoDeVoo(planoVoo);
         }
     }
 }
